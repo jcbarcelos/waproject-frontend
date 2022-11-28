@@ -53,15 +53,7 @@ function App() {
 
 
         <h1 className='text-primary mb-3'>Filmes</h1>
-        <ul class="nav justify-content-end">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Filmes</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link ">Disabled</a>
-          </li>
-        </ul>
+       
         <Filmes filmes={currentFilmes} loading={loading} />
         <Pagination filmesPerPage={filmesPerPage}
           totalFilmes={filmes.length} paginate={paginate} />
