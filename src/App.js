@@ -20,26 +20,53 @@ function App() {
     if (res.data.length > 0) {
       setFilmes([])
       setFilmes(res.data)
-
     }
     setLoading(false)
   }
+
+  const update = async () => {
+    setLoading(true)
+    const res = await axios.post(`http://localhost:3000/filmes`)
+    if (res.data.length > 0) {
+      setFilmes([])
+      setFilmes(res.data)
+    }
+    setLoading(false)
+  }
+  const paginate = async (pageNumber) => setCurrentPage(pageNumber)
+
   const indexOfLastFilmes = currentPage * filmesPerPage;
   const indexOfFirstFilmes = indexOfLastFilmes - filmesPerPage;
   const currentFilmes = filmes.slice(indexOfFirstFilmes, indexOfLastFilmes)
 
-  const paginate = async (pageNumber) => setCurrentPage(pageNumber)
-
-
   return (
-    <div className="container mt-5">
-      <h1 className='text-primary mb-3'>Filmes</h1>
+    <>
+      <div className="container mt-5">
+        <nav class="navbar bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand">Navbar</a>
+            <form class="d-flex">
+              <button class="btn btn-outline-primary" type="button" onClick={() => update()}>Atualizar</button>
+            </form>
+          </div>
+        </nav>
 
-      <Filmes filmes={currentFilmes} loading={loading}/>
-      <Pagination filmesPerPage={filmesPerPage}
-        totalFilmes={filmes.length} paginate={paginate} />
-    </div>
 
+        <h1 className='text-primary mb-3'>Filmes</h1>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Filmes</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link ">Disabled</a>
+          </li>
+        </ul>
+        <Filmes filmes={currentFilmes} loading={loading} />
+        <Pagination filmesPerPage={filmesPerPage}
+          totalFilmes={filmes.length} paginate={paginate} />
+      </div>
+    </>
   );
 }
 
